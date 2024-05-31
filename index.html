@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Lora:wght@400;700&display=swap');
+
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Lora', serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-card, .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 2s;
+        }
+
+        .login-card {
+            max-width: 400px;
+        }
+
+        .login-card h2 {
+            color: #d23669;
+            font-family: 'Dancing Script', cursive;
+            margin-bottom: 20px;
+        }
+
+        .login-card input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .login-card button {
+            width: calc(100% - 20px);
+            padding: 10px 20px;
+            background-color: #d23669;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .login-card button:hover {
+            background-color: #a81c45;
+        }
+
+        .error-message {
+            color: red;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .card {
+            background-image: url('https://images.pexels.com/photos/10526880/pexels-photo-10526880.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-size: cover;
+            max-width: 600px;
+            background-position: center;
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            margin: 20px;
+        }
+
+        .card h1 {
+            font-size: 3em;
+            color: #d23669;
+            font-family: 'Dancing Script', cursive;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 20px;
+        }
+
+        .card p {
+            color: #555;
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .heart {
+            color: #d23669;
+            font-size: 2em;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        .frame {
+            width: 150px;
+            height: 150px;
+            border: 10px solid white;
+            margin: 10px;
+            background-size: cover;
+            display: inline-block;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .frame-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        .card-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://img.freepik.com/free-psd/3d-valentines-day-celebration-background_23-2150100000.jpg?w=826&t=st=1717166917~exp=1717167517~hmac=697da2af1b4e1523bdb666bab69ac814a2d14e0b0d773a0e13bb00b609a43f7b') no-repeat center;
+            background-size: contain;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounceIn {
+            from {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <audio id="backgroundMusic" loop>
+        <source src="lagu/love.mp3" type="audio/mpeg"> <!-- Ganti dengan URL musik -->
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="login-card" id="login-card">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <p class="error-message" id="error-message">Username atau password salah</p>
+    </div>
+
+    <div class="card-container" id="main-card-container" style="display:none;">
+        <div class="overlay"></div>
+        <div class="card" id="main-card">
+            <h1>Untuk Hilwa</h1>
+            <p>Terima kasih telah menemani selama 4 tahun ini. Setiap hari bersamamu adalah anugerah, dan aku bersyukur untuk setiap momen yang telah kita lalui bersama. Kamu adalah sumber semang
+                atku, dan aku tidak bisa membayangkan hidup tanpa cintamu.</p>
+            <div class="heart">❤️</div>
+            <div class="frame-container">
+                <div class="frame" style="background-image: url('foto/photo1.jpeg');"></div> <!-- Ganti dengan URL foto -->
+                <div class="frame" style="background-image: url('foto/photo2.jpeg');"></div> <!-- Ganti dengan URL foto -->
+                <div class="frame" style="background-image: url('foto/photo3.jpeg');"></div> <!-- Ganti dengan URL foto -->
+            </div>
+            <p>Dengan segenap cinta dan kasih, aku akan selalu ada untukmu. Mari kita terus berjalan bersama, merajut kisah indah kita selamanya.</p>
+            <p>Love, [Egi]</p>
+        </div>
+        <div class="background-overlay"></div>
+    </div>
+
+    <script>
+        var audio = document.getElementById("backgroundMusic");
+
+        function login() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var errorMessage = document.getElementById('error-message');
+        
+            if (username === 'egi' && password === 'hilwa') {
+                document.getElementById('login-card').style.display = 'none';
+                document.getElementById('main-card-container').style.display = 'flex';
+                audio.play();
+            } else {
+                errorMessage.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
